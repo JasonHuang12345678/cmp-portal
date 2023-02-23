@@ -1,0 +1,686 @@
+
+
+
+
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+	<meta name="baidu-site-verification" content="obRCQLcUtP" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>CMP连接管理服务</title>
+  <meta name="description" content="CMP连接管理服务">
+  <meta name="keywords" content="CMP连接管理服务">
+        <meta property="og:title" content="CMP连接管理服务" />
+  <meta property="og:description" content="CMP连接管理服务" />
+  <meta property="og:image" content="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/banner.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <link rel="icon" href="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/favicon.ico" type="image/x-icon"/>
+  <link rel="icon" type="image/png" href="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/favicon.png">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="stylesheet" href="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/css/public.css?v=13"/>
+  <link rel="stylesheet" href="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/css/service_bottom.css?v=13"/>
+  <link rel="stylesheet" href="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/css/service.css?v=13"/>
+</head>
+<body>
+<div id="header">
+
+
+
+
+<script type="text/javascript">
+window.STARTTIME = new Date().getTime();
+</script>
+<script type="text/javascript">
+	    var scriptTag = document.createElement('script');
+	    scriptTag.type = 'text/javascript';
+	    scriptTag.async = true;
+	    scriptTag.src = "https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/js/avatar.js";
+	    var head= document.getElementsByTagName('head')[0] || document.documentElement;
+	    head.insertBefore(scriptTag, head.firstChild);
+
+		var avatar = window.Avatar = window.Avatar || [];
+		//获取pageId
+		var pageTmp = window.location.pathname;
+		var pageId = pageTmp.substr(1,pageTmp.lengh);
+
+		//获取渠道
+		var channelTmp = document.referrer;
+		if(channelTmp == null || channelTmp == ""){
+			channel = "LenovoConnect";
+		}else{
+			channel = channelTmp;
+		}
+		channel = "CN_PC:" + channel;
+		//设备(浏览器或手机)型号 , 版本号
+		var deviceModel = "";
+		var versionCode = "";
+		var sys = {};
+		if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {		//iPhone,iPad,iPod,iOS
+		    //获取当前的苹果手机信息
+		    sys = getIPhoneInfo();
+		    //sys.browser得到手机的类型，sys.ver得到手机的版本
+		    deviceModel = sys.browser;
+		    versionCode = sys.ver;
+		} else if (/(Android)/i.test(navigator.userAgent)) {			//Android
+			//获取当前的安卓手机信息
+		    sys = getAndroidInfo();
+		    //sys.browser得到手机的类型，sys.ver得到手机的版本
+		    deviceModel = sys.browser;
+		    versionCode = sys.ver;
+		} else {														//PC端浏览器
+		    //获取当前的浏览器信息
+		    sys = getBrowserInfo();
+		    //sys.browser得到浏览器的类型，sys.ver得到浏览器的版本
+		    deviceModel = sys.browser;
+		    versionCode = sys.ver;
+		};
+
+		//获取安卓手机信息
+		function getAndroidInfo(){
+		      var Sys = {};
+		      var ua = navigator.userAgent.toLowerCase();
+		      var re = /(android).*?([\d.]+)/;
+		      var m = ua.match(re);
+		      if(m == null){
+		    	  Sys.browser = "other Android OS";
+		    	  Sys.ver = "0.0";
+		      }else{
+			      Sys.browser = m[0];
+			      Sys.ver = m[2];
+		      }
+		      return Sys;
+		    }
+		//获取苹果手机信息
+		function getIPhoneInfo(){
+		      var Sys = {};
+		      var ua = navigator.userAgent.toLowerCase();
+		      var re = /(cpu iphone os|cpu os).*?([\d_]+)/;
+		      var m = ua.match(re);
+		      if(m == null){
+		    	  Sys.browser = "other iPhone OS";
+		    	  Sys.ver = "0_0";
+		      }else{
+			      Sys.browser = m[0];
+			      Sys.ver = m[2];
+		      }
+		      return Sys;
+		    }
+		//获取浏览器信息
+	    function getBrowserInfo(){
+	      var Sys = {};
+	      var ua = navigator.userAgent.toLowerCase();
+	      var re = /(maxthon|chrome|msie|firefox|opera|qqbrowser|version).*?([\d.]+)/;
+	      var m = ua.match(re);
+	      if(m == null){
+	    	  Sys.browser = "other browsers";
+	    	  Sys.ver = "0.0";
+	      }else{
+		      Sys.browser = m[1].replace(/version/, "safari");
+		      Sys.ver = m[2];
+	      }
+	      return Sys;
+	    }
+
+		var curDomain = document.domain;
+		avatar.push({
+		 	"appKey" : "15W5T5QLZ88S",
+		 	"pageId" : pageId,
+		 	"throttle" : 0,
+		 	"channel" : channel,
+//		 	"deviceId" : deviceId,
+		 	"deviceModel" : deviceModel,
+		 	"startTime" : STARTTIME,
+		 	"trackStayTime" : true,
+//		 	"versionName" : "",
+		 	"delay" : 100,
+//		 	"versionCode" : versionCode,
+//			"PVInfo" : "",
+		 	"cookieDomain": curDomain,
+		 	"init": function(){
+		 		console.log('初始化完成');
+	 		}
+	    });
+</script>
+    <header class="">
+        <div class="header am-text-regular ">
+            <a href="/cn/" class="logo"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/logo.png" alt=""></a>
+            <div class="change am-text-lg">
+            	<a href="https://www.lenovoconnect.com/en/" class="white display_b">EN</a>
+
+            </div>
+            <ul>
+                <li>
+                  <a href="/cn/" class="">首页</a>
+                </li>
+                <li style="position: relative;">
+                    <a href="/cn/iot/index" class="">物联网卡</a>
+                    <img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/iot/hot.png?v=13" style="width: 30px;margin-left: -25px;margin-bottom: 9px">
+                </li>
+                <li>
+                  <a href="javascript:void(0)" class="active">产品与服务</a>
+                  <img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/iot/hot.png?v=13" style="width: 30px;margin-left: -25px;margin-bottom: 9px">
+                  <div class="down-list">
+                        <ul class="">
+                            <li class="active"><a href="/cn/service/cmp">CMP 连接管理服务</a></li>
+                            <li class="">
+                               <a href="/cn/service/UEM">ThinkUEM 智能设备管理服务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/iot/hot.png?v=13" style="width: 30px;margin-left: -25px;margin-bottom: 9px"></a>
+                            </li>
+                            <li class=""><a href="/cn/service/VAMP">VAMP 增值业务管理平台</a></li>
+                            <li class=""><a href="/cn/service/aep">AEP 应用使能平台</a></li>
+                            <li class=""><a href="/cn/service/mno">MNO 智能车联网</a></li>
+                            <li class=""><a href="/cn/service/MVNO">MVNO虚拟运营商</a></li>
+                            <li class=""><a href="/cn/service/cloud">Cloud云服务</a></li>
+                            <li class=""><a href="/cn/service/hardware" class="show-tab6">智联硬件</a></li>
+
+                        </ul>
+                        <ul class="tab6">
+                            <li class=""><a href="/cn/service/inthardware/headset">Vinci智能耳机</a></li>
+                            <li class=""><a href="/cn/service/inthardware/ThinkIoT">智能云章</a></li>
+                            <li class=""><a href="/cn/service/inthardware/dtu">物联网智能采集终端DTU</a></li>
+                            <li class=""><a href="/cn/service/inthardware/NBIoT">物联网通讯模组</a></li>
+                            <li class=""><a href="/cn/service/inthardware/Miix">Miix 630</a></li>
+                            <li class=""><a href="/cn/service/inthardware/Air">小新Air 12 LTE</a></li>
+                            <li class=""><a href="/cn/service/inthardware/TAB3">定制平板TAB3</a></li>
+                        </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="javascript:void(0)" class="">解决方案</a>
+                  <div class="down-list">
+                        <ul class="">
+                            <li class=""><a href="/cn/solution/car">智能车联</a></li>
+                            <li class=""><a href="/cn/solution/aoacOffice">懂办公</a></li>
+                            <li class=""><a href="/cn/solution/interactive">智能交互</a></li>
+                            <li class=""><a href="/cn/solution/industry">工业物联网</a></li>
+                            <li class=""><a href="/cn/solution/finance">智能政务</a></li>
+                            <li class=""><a href="/cn/solution/retail">新零售</a></li>
+                            <!-- <li class=""><a href="/cn/solution/pay">智能支付</a></li> -->
+                            <li class=""><a href="/cn/solution/agriculture">农业物联网</a></li>
+                        </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="/cn/news/index" class="">新闻资讯</a>
+                </li>
+                <li>
+                  <a href="/cn/aboutus/index" class="">关于我们</a>
+                </li>
+                <li>
+                    <a href="/cn/contactus/index" class="">联系我们</a>
+                    <div class="down-list ">
+                        <ul class="">
+                            <li class=""><a href="/cn/contactus/index?id=sale">销售咨询</a></li>
+                            <li class=""><a href="/cn/contactus/index?id=market">市场咨询</a></li>
+                            <li class=""><a href="/cn/contactus/index?id=personnel">人才招聘</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="down-list-bg"></div>
+<script src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/js/jquery-1.10.1.min.js?v=13"></script>
+<script type="text/javascript">
+$(function(){
+    $('.header>ul>li').each(function(){
+        if($(this).find('.down-list').length>0){
+            $(this).addClass('down-icon');
+            if($('.tab6').find('li.active').length>0){
+                $('.tab6').css('display','inline-block')
+            }
+        }
+    });
+    $('.header>ul>li').hover(function(){
+        if($(this).find('.down-list').length>0){
+            $('.down-list-bg').show();
+            $('.header').addClass('active');
+            $('.header>ul>li').removeClass('active');
+            $(this).addClass('active');
+        }else{
+            $('.down-list-bg').hide();
+            $('.header').removeClass('active');
+            $('.header>ul>li').removeClass('active');
+        }
+    },function(){
+    });
+    $('.down-list ul:first-child a').hover(function(){
+        $('.down-list ul:first-child a').removeClass('active')
+        if($(this).hasClass('show-tab6')){
+            $('.tab6').css('display','inline-block')
+            $(this).addClass('active')
+        }else{
+        	if($('.tab6').find('li.active').length>0){
+                $('.tab6').css('display','inline-block')
+            }else{
+                $('.tab6').hide()
+            }
+        }
+    },function(){
+    });
+    $('.tab6').hover(function(){
+        $('.tab6').css('display','inline-block')
+    },function(){
+    	if($('.tab6').find('li.active').length>0){
+            $('.tab6').css('display','inline-block')
+        }else{
+            $('.tab6').hide()
+        }
+        $('.show-tab6').removeClass('active')
+    });
+    $('.down-list-bg').hover(function(){
+    },function(){
+        $(this).hide()
+        $('.header').removeClass('active');
+        $('.header>ul>li').removeClass('active');
+    });
+    $('.change-btn').click(function(e){
+            e.stopPropagation();
+        $('.header').removeClass('active');
+        $('#header').addClass('active2');
+        if($(this).hasClass('active')){
+            $('.change-list').hide();
+            $(this).removeClass('active')
+        }else{
+            $('.change-list').show();
+            $(this).addClass('active')
+        }
+    })
+    $('body').click(function(){
+             $('.change-list').hide();
+             $('.change-btn').removeClass('active')
+             $('#header').removeClass('active2');
+             $('.header').removeClass('active');
+    })
+})
+</script>
+
+</div>
+<div class="solution">
+    <div class="banner"></div>
+    <div class="solution-content">
+        <div id="intro" class="CMP">
+            <div class="intro-content max-width">
+                <div class="intro-left">
+                    <p class="font26">ThinkIoT-CMP简介</p>
+                    <p class="am-margin-top">ThinkIoT-CMP连接管理服务平台能够将符合任意网络拓扑及通讯场景的传感器、设备及装置进行连接，从而提供可扩展的、安全的、嵌入式的并且易于部署的连接能力。</p>
+                </div>
+                <div class="intro-right">
+                    <img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="bge am-text-center solution-content-list1">
+            <div class="max-width">
+                <div class="solution-list-top">
+                    <p class="font36 am-text-bold">功能特性</p>
+                    <p class=" am-margin-top-sm am-text-lg color4">统一平台进行通信管理服务&nbsp;&nbsp;按需灵活定制通信套餐资费</p>
+                </div>
+                <nav class="am-margin-top-lg character-nav">
+                    <ul class="am-avg-sm-4 am-text-lg">
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon1.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">定制SIM卡体/ 独特生命周期</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon2.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">连接全生命周期管理/了解设备实时连接状态</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon3.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">支持按量计费与流量池模式</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon4.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">统一的终端续费平台</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon5.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">多级账户系统利润自动分配</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon6.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">支持基于业务内容的分离计费运营</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon7.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">可定义自动规制/实现生产自动化</p>
+                        </li>
+                        <li>
+                            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/icon8.png" class="display_b margin-auto" alt=""></p>
+                            <p class="am-margin-top-lg am-padding-top-xs">自有IT系统</p>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="am-text-center solution-content-list1 border-bottom1 service-adv">
+            <div class="max-width">
+                <div class="solution-list-top">
+                    <p class="font36 am-text-bold">服务优势</p>
+                    <p class=" am-margin-top-sm am-text-lg color4">直连全球运营商通信资源，一点接入，享受全球服务</p>
+                </div>
+                <ul class="am-avg-sm-4 am-margin-top-xl">
+                    <li>
+                        <div>
+                            <p class="am-margin-bottom-sm service-adv-img"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img2.jpg" class="display_b margin-auto" alt=""></p>
+                            <p class="am-text-xxl am-text-bold am-margin-bottom-xs">属地化服务资源</p>
+                            <p class="color8 am-padding-left-sm am-padding-right-sm">在香港、欧洲、美国建立了子公司，为客户提供属地化的IoT通信服务资源</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p class="am-margin-bottom-sm service-adv-img"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img3.jpg" class="display_b margin-auto" alt=""></p>
+                            <p class="am-text-xxl am-text-bold am-margin-bottom-xs">40+优质运营商</p>
+                            <p class="color8 am-padding-left-sm am-padding-right-sm">在全球范围内接入超过40家优质运营商资源，除国内三大运营商外，还接入法国电信、AT&T、HUE等欧美运营商</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p class="am-margin-bottom-sm service-adv-img"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img4.jpg" class="display_b margin-auto" alt=""></p>
+                            <p class="am-text-xxl am-text-bold am-margin-bottom-xs">覆盖160+国家与地区</p>
+                            <p class="color8 am-padding-left-sm am-padding-right-sm">覆盖全球约160个国家和地区</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <p class="am-margin-bottom-sm service-adv-img"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img5.jpg" class="display_b margin-auto" alt=""></p>
+                            <p class="am-text-xxl am-text-bold am-margin-bottom-xs">多种通信资源</p>
+                            <p class="color8 am-padding-left-sm am-padding-right-sm">蜂窝网络（2G/3G/4G/NB-IoT）窄带广域网（LoRa）卫星网络（高轨&低轨）</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="am-text-center solution-content-list1 character-ser">
+            <div class="max-width">
+                <div class="solution-list-top">
+                    <p class="font36 am-text-bold">特色服务</p>
+                    <p class=" am-margin-top-sm am-text-lg color4">轻松享受   按需定制</p>
+                </div>
+                <nav class="am-margin-top-xl am-padding-top-xs">
+                    <ul class="am-avg-sm-2">
+                        <li>
+                            <div>
+                                <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/solution/icon9.png" class="display_b margin-auto" alt=""></p>
+                                <p class="am-text-xl am-text-bold am-margin-top-xs am-margin-bottom-xs inline-title">eSIM服务</p>
+                                <p class="am-text-lg am-padding-left-xl am-padding-right-xl">开机即用，开启用户经营模式无需换卡即可变更移动运营商，基于Lenovo ID，实现流量共享随时随地，本地资费。</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/solution/icon10.png" class="display_b margin-auto" alt=""></p>
+                                <p class="am-text-xl am-text-bold am-margin-top-xs am-margin-bottom-xs inline-title">企业级SDD服务</p>
+                                <p class="am-text-lg am-padding-left-xl am-padding-right-xl">服务定义流量(Service Defined Dataplan, SDD)，DIY构建专属内容服务，灵活组合服务内容，为企业定制2C解决方案，快速响应，准及时查询。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="bge am-text-center solution-content-list1">
+            <div class="max-width">
+                <div class="solution-list-top">
+                    <p class="font36 am-text-bold">应用场景</p>
+                </div>
+                <ul class="am-avg-sm-3 am-text-xl am-margin-top-xl place-ul">
+                    <li>
+                        <div class="bg-white">
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img6.jpg" alt=""></p>
+                            <p class="am-padding">工厂</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="bg-white">
+                            <p class="am-padding">车间</p>
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img7.jpg" alt=""></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="bg-white">
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img8.jpg" alt=""></p>
+                            <p class="am-padding">航运</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="bg-white">
+                            <p class="am-padding">城市设施</p>
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img9.jpg" alt=""></p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="bg-white">
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img10.jpg" alt=""></p>
+                            <p class="am-padding">建筑</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="bg-white">
+                            <p class="am-padding">农业</p>
+                            <p class="list-img"><img class="display_b margin-auto" width="100%" src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/service/img11.jpg" alt=""></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="solution-bottom">
+            <div class="max-width am-text-center">
+                <div class="solution-content-list2-title">
+                    <p class="font36 am-text-bold">八大产品与服务</p>
+                    <p class=" am-margin-top am-text-lg">助力实现设备、客户、网络、数据与服务的无缝智能连接</p>
+                </div>
+                <nav class=" am-text-lg">
+                    <ul class="am-avg-sm-8">
+                        <li class="CMP-btn active">
+                            <a href="javascript:;" class="display_b">ThinkIoT-CMP</a>
+                        </li>
+                        <li class="VAMP-btn">
+                            <a href="/cn/service/VAMP" class="display_b">ThinkIoT-VAMP</a>
+                        </li>
+                        <li class="UEM-btn">
+                            <a href="/cn/service/UEM" class="display_b">ThinkUEM</a>
+                        </li>
+                        <li class="AEP-btn">
+                            <a href="/cn/service/aep" class="display_b">ThinkIoT-AEP</a>
+                        </li>
+                 
+                        <li class="MNO-btn">
+                            <a href="/cn/service/mno" class="display_b">ThinkIoT-MNO</a>
+                        </li>
+                        <li class="MVNO-btn">
+                            <a href="/cn/service/MVNO" class="display_b">MVNO</a>
+                        </li>
+                               <li class="cloud-btn">
+                            <a href="/cn/service/cloud" class="display_b">ThinkIoT云服务</a>
+                        </li>
+                        <li class="hardware-btn">
+                            <a href="/cn/service/hardware" class="display_b">ThinkIoT智联硬件</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="chatFixed">
+
+
+
+<div class="chatUs-fixed">
+    <div class="chatUs-fixed-content am-fr">
+        <div class="code-btn">
+            <div class="code-content am-text-center hide am-fl">
+                <div class="code-mains bg-white">
+                    <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/code.jpg" class="display_b margin-auto" alt=""></p>
+                    <p class="am-text-lg black">扫一扫&nbsp;&nbsp;&nbsp;关注懂的</p>
+                </div>
+            </div>
+        </div>
+        <div class="service-btn">
+            <div class="service-cion-content hide am-fl">
+                <div class="service-mains bg-white">
+                    <div class="phone-icon black">
+                        <p class="am-text-xl">电话咨询</p>
+                        <p class="color9">40064 10041</p>
+                    </div>
+                    <div class="mail-icon black">
+	         			<a href="mailto:service@lenovoconnect.com" class="color3">
+	                    <p class="am-text-xl">邮箱联系</p>
+	                    <p class="color9">service@lenovoconnect.com</p>
+	                    </a>
+                    </div>
+                    <div class="online-icon black">
+                   		<a href="http://srv.lenovo.com.cn/chatwap/index.do?sd=1&gd=18&pt=4" target="_blank" class="display_b black">
+                            <p class="am-text-xl">在线咨询</p>
+                            <p class="online-icon-btn">客服答疑</p>
+                        </a>
+                    </div>
+                    <div class="complain-icon black">
+                   		<a href="https://voprn.lenovoconnect.com/complaint" target="_blank" class="display_b black">
+                   		    <p class="am-text-xl">物联网卡</p>
+                            <p class="complain-icon-btn" style ="width:150px">投诉举报专区</p>
+                        </a>
+                    </div>
+                    <div class=" black">
+                        <p class="color9">服务时间（9:00-18:00)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scrollTop-btn" id="scrollTop-btn"></div>
+    </div>
+</div>
+<script src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/js/jquery-1.10.1.min.js?v=13"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.chatUs-fixed').hover(function(){
+            $(this).addClass('active')
+        },function(){
+            $(this).removeClass('active')
+        })
+        $('.scrollTop-btn').hover(function() {
+            $('.code-content').addClass("hide")
+            $('.service-cion-content').addClass("hide")
+            $(this).text('顶部')
+            $(this).addClass("active")
+        },function(){
+            $(this).text('')
+            $(this).removeClass("active")
+        });
+/*         $('.code-btn').hover(function() {
+            $('.service-cion-content').addClass("hide")
+            $('.code-content').removeClass("hide")
+        },function(){
+        });
+        $('.code-content').hover(function() {
+            $('.code-content').removeClass("hide")
+        },function(){
+            $('.code-content').addClass("hide")
+        });
+        $('.service-btn').hover(function() {
+            $('.code-content').addClass("hide")
+            $('.service-cion-content').removeClass("hide")
+        },function(){
+        });
+        $('.service-cion-content').hover(function() {
+            $('.service-cion-content').removeClass("hide")
+        },function(){
+            $('.service-cion-content').addClass("hide")
+        }); */
+    })
+</script>
+
+</div>
+<div id="footer">
+
+
+
+<footer>
+    <div class="footer am-text-sm">
+        <div class="footer-left">
+            <p class="am-margin-bottom9"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/logo.png" alt=""></p>
+            <p class="am-margin-bottom-xxs">汇聚全球连接及服务资源</p>
+            <p class="am-margin-bottom-xs">为万物智能互联赋能</p>
+            <div class="am-padding-right-sm">
+            	<ul class="bottom-icon am-avg-sm-5 am-padding-top am-padding-bottom-lg am-padding-right-xxl">
+                    <li><a href="https://weibo.com/p/1006065747118758/home?from=page_100606&mod=TAB#place" class="display_b am-margin-right-xs"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/icon1.png" class="display_b margin-auto" width="100%"></a></li>
+                    <li><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzI4NjgwNTA5MQ==&scene=126&bizpsid=0&subscene=0#wechat_redirect" class="display_b am-margin-right-xs"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/icon6.png" class="display_b margin-auto" width="100%"></a></li>
+                    <li><a href="https://www.facebook.com/LenovoConnectGlobal" class="display_b am-margin-right-xs"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/icon3.png" class="display_b margin-auto" width="100%"></a></li>
+                    <li><a href="https://twitter.com/LenovoConnect" class="display_b am-margin-right-xs"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/icon4.png" class="display_b margin-auto" width="100%"></a></li>
+                    <li><a href="https://www.linkedin.com/company/lenovo-connect/" class="display_b am-margin-right-xs"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/icon5.png" class="display_b margin-auto" width="100%"></a></li>
+                </ul>
+            </div>
+            <p class="blue2">广州市南沙区翠樱街1号彩汇中心31栋（B栋）19层1901室</p>
+            <p class="blue2">版权所有 广东联想懂的通信有限公司</p>
+            <p class="blue2">粤B2-20211397 &nbsp;&nbsp;<a href="https://beian.miit.gov.cn" class="blue2">粤ICP备17107023号</a> </p>
+            <p class="blue2"><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/gongan.png" style="float:left;"/>&nbsp;&nbsp;<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44011502000967" class="blue2">粤公网安备 44011502000967号</a></p>
+            <p class="blue2 am-text-xs">©&nbsp;2019&nbsp;&nbsp; <a href="/cn/statement" class="blue2" style="border-left: 1px solid #6d6f7f; line-height: .24rem;">&nbsp;&nbsp; 隐私说明</a></p> 
+            
+        </div>
+        <ul class="footer-ul">
+            <li>
+                <p class="am-text-default">产品与服务</p>
+                <ul class="">
+                    <li><a href="/cn/service/cmp">CMP</a></li>
+                    <li><a href="/cn/service/UEM">ThinkUEM</a></li>
+                    <li><a href="/cn/service/VAMP">VAMP</a></li>
+                    <li><a href="/cn/service/aep">AEP</a></li>
+                    <li><a href="/cn/service/mno">MNO</a></li>
+                    <li><a href="/cn/service/MVNO">MVNO</a></li>
+                    <li><a href="/cn/service/cloud">Cloud</a></li>
+                    <li><a href="/cn/service/hardware">智联硬件</a></li>
+                </ul>
+            </li>
+            <li>
+                <p class="am-text-default">解决方案</p>
+                <ul class="">
+                    <li><a href="/cn/solution/car">智能车联</a></li>
+                    <li><a href="/cn/solution/aoacOffice">懂办公</a></li>
+                    <li><a href="/cn/solution/interactive">智能交互</a></li>
+                    <li><a href="/cn/solution/industry">工业物联网</a></li>
+                    <li><a href="/cn/solution/finance">智能政务</a></li>
+                    <li><a href="/cn/solution/retail">新零售</a></li>
+                    <li><a href="/cn/solution/agriculture">农业物联网</a></li>
+                </ul>
+            </li>
+            <li>
+                <p class="am-text-default">联系我们</p>
+                <ul class=" blue2 footer-chat">
+                    <li>
+                    	<a href="mailto:service@lenovoconnect.com" class="blue2">
+                        <p>商务合作</p>
+                        <p>service@lenovoconnect.com</p>
+                        </a>
+                    </li>
+                    <li>
+                        <p>客服热线&nbsp;&nbsp;</p>
+                        <p>40064&nbsp;&nbsp;10041&nbsp;(9:00—18:00)</p>
+                    </li>
+                    <li>
+                        <a href="mailto:service@lenovoconnect.com" class="blue2">
+                        <p>服务邮箱</p>
+                        <p>service@lenovoconnect.com</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:lchr@lenovoconnect.com" class="blue2">
+                        <p>人才招聘</p>
+                        <p>lchr@lenovoconnect.com</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="footer-right am-text-center">
+            <p><img src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/i/public/code.jpg" alt=""></p>
+            <p>扫码关注微信公众号</p>
+        </div>
+    </div>
+</footer>
+
+</div>
+<script src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/js/jquery-1.10.1.min.js?v=13"></script>
+<script src="https://lenovoconnectoss.oss-cn-hongkong.aliyuncs.com/cn/assets/js/public.js?v=13"></script>
+</body>
+</html>
